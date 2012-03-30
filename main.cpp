@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <GL/glut.h>
+#include <glut.h>
 #include "Simulator.h"
 #include "Timing.h"
 using namespace std;

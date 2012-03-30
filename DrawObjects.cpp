@@ -1,7 +1,7 @@
 #include "NxPhysics.h"
 #include "DrawObjects.h"
 
-#include <GL/glut.h>
+#include <glut.h>
 
 #include "common.h"
 
