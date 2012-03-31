@@ -1,1 +1,6 @@
-*.sdf *.suo *.user
+*.sdf 
+*.suo 
+*.user
+[Dd]ebug*/
+[Rr]elease*/
+Util/*.tlog
