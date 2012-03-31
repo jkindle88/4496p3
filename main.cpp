@@ -2,6 +2,7 @@
 #include <glut.h>
 #include "Simulator.h"
 #include "Timing.h"
+#include <iostream>
 using namespace std;
 
 static Simulator *gSim = NULL;
@@ -12,7 +13,7 @@ int mx = 0;
 int my = 0;
 
 // Camera globals
-NxVec3 gCameraPos(0,5,-8);
+NxVec3 gCameraPos(-15,5,-30);
 NxVec3 gCameraForward(0,0,1);
 NxVec3 gCameraRight(-1,0,0);
 const NxReal gCameraSpeed = 0.02;
@@ -34,14 +35,48 @@ void ProcessKeys()
 		
 		switch (i)
 		{
-				// Camera controls
-			case 'w':{ gCameraPos += gCameraForward*gCameraSpeed; break; }
-			case 's':{ gCameraPos -= gCameraForward*gCameraSpeed; break; }
-			case 'a':{ gCameraPos -= gCameraRight*gCameraSpeed; break; }
-			case 'd':{ gCameraPos += gCameraRight*gCameraSpeed; break; }
-			case 'z':{ gCameraPos -= NxVec3(0,1,0)*gCameraSpeed; break; }
-			case 'q':{ gCameraPos += NxVec3(0,1,0)*gCameraSpeed; break; }
-				
+			//case 'w':{ gCameraPos += gCameraForward*gCameraSpeed; break; }
+			//case 's':{ gCameraPos -= gCameraForward*gCameraSpeed; break; }
+
+			// Camera controls -- Constrain viewing area
+			// vertical range: between 4.0 and 10.0
+			// horizontal range: between -2.5 and 15.0
+			case 'a':
+				{
+					if (gCameraPos[0] <= -2.5)
+						gCameraPos -= gCameraRight*gCameraSpeed;
+					break; 
+				}
+			case 'd':
+				{
+					if (gCameraPos[0] >= -15.0)
+						gCameraPos += gCameraRight*gCameraSpeed;
+					break; 
+				}
+			case 's':
+				{
+					if (gCameraPos[1] >= 4.0)
+						gCameraPos -= NxVec3(0,1,0)*gCameraSpeed;
+					break; 
+				}
+			case 'w':
+				{ 
+					if (gCameraPos[1] <= 10.0)
+						gCameraPos += NxVec3(0,1,0)*gCameraSpeed;
+					break; 
+				}
+			case 'z':
+				{
+					if (gCameraPos[1] >= 4.0)
+						gCameraPos -= NxVec3(0,1,0)*gCameraSpeed;
+					break; 
+				}
+			case 'q':
+				{ 
+					if (gCameraPos[1] <= 10.0)
+						gCameraPos += NxVec3(0,1,0)*gCameraSpeed;
+					break; 
+				}
 		}
 	}
 }
@@ -105,6 +140,10 @@ void KeyboardUpCallback(unsigned char key, int x, int y)
 
 void MouseCallback(int button, int state, int x, int y)
 {
+	if (button == GLUT_LEFT_BUTTON) 
+	{
+		//Simulator.launch();
+	}
     mx = x;
     my = y;
 }
@@ -114,6 +153,7 @@ void MotionCallback(int x, int y)
     int dx = mx - x;
     int dy = my - y;
     
+	//DEBUG -- Remove in final version
     gCameraForward.normalize();
     gCameraRight.cross(gCameraForward,NxVec3(0,1,0));
 	

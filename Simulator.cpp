@@ -6,6 +6,7 @@
  *  Copyright 2010 GA Tech. All rights reserved.
  *
  */
+#include <ctime>
 
 #ifndef __SIMULATOR_H__
 #include "Simulator.h"
@@ -16,6 +17,7 @@
 #include "Utilities.h"
 #include "DrawObjects.h"
 #include "Actors.h"
+
 
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
 {
@@ -132,7 +134,7 @@ void Simulator::CreateScene()
 	capsule2->setLinearDamping(0.2);
 	capsule3->setLinearDamping(0.2);
 	
-	// creat joints
+	// create joints
 	NxVec3 globalAnchor1 = NxVec3(1.4,7,0);
 	NxVec3 globalAnchor2 = NxVec3(1.4,5,0);
 	NxVec3 globalAnchor3 = NxVec3(1.4,3,0);
@@ -141,11 +143,26 @@ void Simulator::CreateScene()
 	mActors->CreateSphericalJoint(capsule1, capsule2, globalAnchor2, globalAxis);
 	mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);
 	
+	// Right side wall -- immutable
+	mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 10, 3),1000.0);
+
+	// Create platform/base -- immutable
+	mActors->CreateStack(NxVec3(0, 0, 0), NxVec3(2, 1, 2), NxVec3(0.2, 0.2, 0.2), 100.0);
+
+	//Create launcher!
+	//mActors->CreateTower(NxVec3(0, .3, 0),5,NxVec3(0.2, 0.2, 0.2),1.0);
+	//mActors->CreateStack(NxVec3(0, i*0.8, 0),NxVec3(2, 1, 2),NxVec3(0.2,0.2,0.2),0.001);
+
 	
-	mActors->CreateStack(NxVec3(0, 0, 0), NxVec3(2, 7, 2), NxVec3(0.2, 0.2, 0.2), 1.0);
+	//Launch stuff!
+	NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),0.5,0.01);
+	b1->addForce(NxVec3(-12, 3, 0));
+
+
+	//Destroy! -- this will knock over anything
+	//NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),1.0,1000);
+	//b1->addForce(NxVec3(-500000, 50000, 0));
 	
-	
-	mActors->mSelectedActor = capsule3;
 	getElapsedTime();
 }
 
@@ -178,7 +195,7 @@ void Simulator::RunPhysics()
 {
 	// Update the time step
 	NxReal deltaTime = getElapsedTime();
-//	NxReal deltaTime = 0.0005;
+	//NxReal deltaTime = 0.0005;
 
 	// Run collision and dynamics for delta time since the last frame
 	mScene->simulate(deltaTime);	
