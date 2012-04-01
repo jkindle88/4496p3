@@ -26,7 +26,7 @@ int x,y;
 
 //Win conditions
 NxActor *ball;
-
+int winCount = 0;
 
 
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
@@ -102,6 +102,45 @@ void Simulator::RenderScene()
 	RenderActors();
 	if(mActors->mSelectedActor)
 		RenderForce(mActors->mSelectedActor, mForceVec, NxVec3(1, 0, 0));
+
+	//Victory, display "YOU WIN" in the sky
+	if (goal && (winCount == 0 || winCount > 3000) && winCount < 3020)
+	{
+		//Y
+		mActors->CreateTower(NxVec3(-3,10,10),6,NxVec3(.2,.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-3,12.4,10),NxVec3(1.2,.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-2,12.8,10),NxVec3(.2,1.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-4,12.8,10),NxVec3(0.2,1.2,.2),0.001);
+
+		//O
+		mActors->CreateBox(NxVec3(-6,10,10),NxVec3(1.2,.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-5,10.4,10),NxVec3(.2,1.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-7,10.4,10),NxVec3(.2,1.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-6,12.8,10),NxVec3(1.2,.2,.2),0.001);
+
+		//U
+		mActors->CreateBox(NxVec3(-9,10,10),NxVec3(1.2,.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-8,10.4,10),NxVec3(.2,1.4,.2),0.001);
+		mActors->CreateBox(NxVec3(-10,10.4,10),NxVec3(.2,1.4,.2),0.001);
+
+		//W
+		mActors->CreateBox(NxVec3(-13,10,10),NxVec3(1.2,.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-12,10.4,10),NxVec3(.2,1.6,.2),0.001);
+		mActors->CreateBox(NxVec3(-13,10.4,10),NxVec3(.2,1.6,.2),0.001);
+		mActors->CreateBox(NxVec3(-14,10.4,10),NxVec3(.2,1.6,.2),0.001);
+
+		//I 
+		mActors->CreateTower(NxVec3(-15,10,10),7,NxVec3(.2,.2,.2),0.001);
+
+		//N
+		mActors->CreateTower(NxVec3(-16,10,10),7,NxVec3(.2,.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-18,10,10),NxVec3(.2,1.2,.2),0.001);
+		mActors->CreateBox(NxVec3(-17.2,12.4,10),NxVec3(1.0,.2,.2),0.001);
+	}
+	if (goal)
+		winCount++;
+	else if (winCount > 3021)
+		winCount = 3021;
 }
 
 bool Simulator::InitNx()
