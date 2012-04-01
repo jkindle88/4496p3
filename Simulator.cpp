@@ -28,6 +28,7 @@ int x,y;
 NxActor *ball;
 
 
+
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
 {
 	NxVec3 forceVec = mForceStrength * forceDir;
@@ -61,10 +62,18 @@ void Simulator::ProcessKeys(const bool *keys)
 
 void Simulator::RenderActors()
 {
+	//check if win conditions met
 	if(!goal && ball->getGlobalPosition().y < 1)
 	{
 		mScene->releaseActor(*ball);
 		goal = true;
+	}
+
+	//destroy 'bird' once it touches ground
+	if(bird != NULL && bird->getGlobalPosition().y < 1)
+	{
+		mScene->releaseActor(*bird);
+		bird = NULL;
 	}
 
     // Render all the actors in the scene
@@ -142,7 +151,7 @@ void Simulator::CreateScene()
 	mObjects.push_back(mActors->CreateGroundPlane());
 
 	// create pendulum
-	NxActor *capsule1 = mActors->CreateCapsule(NxVec3(1.4, 5, 0), 1.1, 0.25, 11);
+	/*NxActor *capsule1 = mActors->CreateCapsule(NxVec3(1.4, 5, 0), 1.1, 0.25, 11);
 	NxActor *capsule2 = mActors->CreateCapsule(NxVec3(1.4, 3.2, 0), 1.2, 0.35, 10.7);
 	NxActor *capsule3 = mActors->CreateCapsule(NxVec3(1.4, 1.6, 0), 0.8, 0.45, 11.5);
 	capsule1->setLinearDamping(0.2);
@@ -156,7 +165,7 @@ void Simulator::CreateScene()
 	NxVec3 globalAxis = NxVec3(0, -1, 0);
 	mActors->CreateSphericalJoint(NULL, capsule1, globalAnchor1, globalAxis);
 	mActors->CreateSphericalJoint(capsule1, capsule2, globalAnchor2, globalAxis);
-	mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);
+	mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);*/
 	
 	//TOWER OF POWER
 	mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 5, 3),0.01);
@@ -245,17 +254,27 @@ void Simulator::launch(int mx, int my, bool fire)
 
 	if (fire) 
 	{
-		int dx = mx - x;
-		int dy = my - y;
+		double dx = mx - x;
+		double dy = my - y;
+
+		dx = dx*(1.0/2.0);
+		dy = dy*(1.0/4.0);
+
+		if (dx<-30) dx = -30;
+		else if (dx>0) dx = 1;
+		if (dy>20) dy = 20;
+		else if (dy<0) dy = 0;
+
 		time_t timeDiff = time(NULL) - clickDownTime;
-		if (timeDiff >= 1 && timeDiff < 2)
+		/*if (timeDiff >= 1 && timeDiff < 2)
 			bird->addForce(NxVec3(-20, 4.1, 0));
 		else if (timeDiff >= 2 && timeDiff < 3)
 			bird->addForce(NxVec3(-30, 4.1, 0));
 		else if (timeDiff >= 3 && timeDiff < 4)
 			bird->addForce(NxVec3(-40, 4.1, 0));
 		else
-			bird->addForce(NxVec3(-1, 4.1, 0));
+			bird->addForce(NxVec3(-1, 4.1, 0));*/
+		bird->addForce(NxVec3(dx, dy, 0));
 	}
 }
 

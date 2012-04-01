@@ -1,5 +1,50 @@
-﻿Build started 4/1/2012 1:22:39 AM.
+﻿Build started 4/1/2012 4:01:11 AM.
+     1>Project "C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Project3.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\Project3.unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Util" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\Foundation\include" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\Physics\include" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\PhysXLoader\include" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\Cooking\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _CONSOLE /D _DEBUG /D NX32 /D NX_USE_SDK_STAATICLIBS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Simulator.cpp
+         Simulator.cpp
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(133): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(171): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(171): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(172): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(172): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(173): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(173): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(175): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(187): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(187): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(187): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(192): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(192): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(192): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(249): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(277): warning C4244: 'argument' : conversion from 'double' to 'NxReal', possible loss of data
+     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(277): warning C4244: 'argument' : conversion from 'double' to 'NxReal', possible loss of data
+       ManifestResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Debug\Project3.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\lib\Win32" PhysXLoader.lib PhysXLoaderCHECKED.lib NxCharacter.lib NxCharacterCHECKED.lib PhysXCooking.lib PhysXCookingCHECKED.lib PhysXCore.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Project3.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Debug\Project3.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Debug\Project3.lib" /MACHINE:X86 Debug\Project3.exe.embed.manifest.res
+         Debug\Actors.obj
+         Debug\DrawObjects.obj
+         Debug\main.obj
+         Debug\Simulator.obj
+         Debug\cooking.obj
+         Debug\Stream.obj
+         Debug\Timing_WIN.obj
+         Debug\UserAllocator.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\Project3.exe.embed.manifest" /manifest Debug\Project3.exe.intermediate.manifest
+         All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         Project3.vcxproj -> C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Debug\Project3.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\Project3.unsuccessfulbuild".
+         Touching "Debug\Project3.lastbuildstate".
+     1>Done Building Project "C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Project3.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.01
+Time Elapsed 00:00:02.94
