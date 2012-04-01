@@ -23,8 +23,9 @@
 NxActor *bird;
 time_t clickDownTime;
 
-//Target ball
+//Win conditions
 NxActor *ball;
+bool goal = false;
 
 
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
@@ -60,6 +61,12 @@ void Simulator::ProcessKeys(const bool *keys)
 
 void Simulator::RenderActors()
 {
+	if(!goal && ball->getGlobalPosition().y < 1)
+	{
+		mScene->releaseActor(*ball);
+		goal = true;
+	}
+
     // Render all the actors in the scene
     int nActor = mScene->getNbActors();
     NxActor** actors = mScene->getActors();
@@ -155,6 +162,8 @@ void Simulator::CreateScene()
 	mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 5, 3),0.01);
 	mActors->CreateBox(NxVec3(-30,0,0),NxVec3(0.3, 5, 3),0.01);
 	mActors->CreateBox(NxVec3(-27.5,6,0),NxVec3(10, 0.3, 5), 0.0001);
+
+	ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.01);
 
 	//mActors->CreateStack(NxVec3(-25, 0, 0), NxVec3(4,1,1), NxVec3(1,1,1), 0.001);
 	//mActors->CreateStack(NxVec3(-25, 2, 0), NxVec3(3,1,1), NxVec3(1,1,1), 0.001);
