@@ -80,6 +80,11 @@ void ProcessKeys()
 						gCameraPos += NxVec3(0,1,0)*gCameraSpeed;
 					break; 
 				}
+			case 'n':
+				{ 
+					gSim->ResetScene();
+					gSim->CreateScene();
+				}
 		}
 	}
 }

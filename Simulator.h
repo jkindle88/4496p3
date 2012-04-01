@@ -45,6 +45,7 @@ public:
 	//Gameplay additions
 	void launch(int x, int y, bool fire);
 
+	void ResetScene();
 	void RenderScene();
 	void RunPhysics();
 	void ProcessKeys(const bool *keys);

@@ -43,7 +43,7 @@ NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
 
 void Simulator::ProcessKeys(const bool *keys)
 {
-	if(keys['i'] == true){
+	/*if(keys['i'] == true){
 		mForceVec = ApplyForceToActor(mActors->mSelectedActor, NxVec3(0,0,1));
 	}else if(keys['k'] == true){
 		mForceVec = ApplyForceToActor(mActors->mSelectedActor, NxVec3(0,0,-1));
@@ -57,7 +57,7 @@ void Simulator::ProcessKeys(const bool *keys)
 		mForceVec = ApplyForceToActor(mActors->mSelectedActor, NxVec3(0,-1,0));
 	}else{
 		mForceVec.zero();
-	}
+	}*/
 }
 
 void Simulator::RenderActors()
@@ -95,6 +95,17 @@ void Simulator::RenderForce(NxActor* actor, NxVec3& forceVec, const NxVec3& colo
 	
 	NxVec3 pos = actor->getCMassGlobalPosition();
 	DrawArrow(pos, pos + forceVec, color);
+}
+
+void Simulator::ResetScene()
+{
+	int nActor = mScene->getNbActors();
+    NxActor** actors = mScene->getActors();
+    while (nActor--){
+        NxActor* actor = *actors++;
+		mScene->releaseActor(*actor);
+		actor = NULL;
+    }
 }
 
 void Simulator::RenderScene()
