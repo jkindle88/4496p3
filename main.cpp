@@ -13,7 +13,7 @@ int mx = 0;
 int my = 0;
 
 // Camera globals
-NxVec3 gCameraPos(-15,5,-30);
+NxVec3 gCameraPos(0,5,-18);
 NxVec3 gCameraForward(0,0,1);
 NxVec3 gCameraRight(-1,0,0);
 const NxReal gCameraSpeed = 0.02;
@@ -49,7 +49,7 @@ void ProcessKeys()
 				}
 			case 'd':
 				{
-					if (gCameraPos[0] >= -15.0)
+					if (gCameraPos[0] >= -16.0)
 						gCameraPos += gCameraRight*gCameraSpeed;
 					break; 
 				}

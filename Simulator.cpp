@@ -127,9 +127,9 @@ void Simulator::CreateScene()
 	mObjects.push_back(mActors->CreateGroundPlane());
 
 	// create pendulum
-	NxActor *capsule1 = mActors->CreateCapsule(NxVec3(1.4, 5, 0), 1.1, 0.45, 1);
-	NxActor *capsule2 = mActors->CreateCapsule(NxVec3(1.4, 3, 0), 1.3, 0.35, 0.7);
-	NxActor *capsule3 = mActors->CreateCapsule(NxVec3(1.4, 1.6, 0), 0.8, 0.3, 0.5);
+	NxActor *capsule1 = mActors->CreateCapsule(NxVec3(1.4, 5, 0), 1.1, 0.25, 11);
+	NxActor *capsule2 = mActors->CreateCapsule(NxVec3(1.4, 3.2, 0), 1.2, 0.35, 10.7);
+	NxActor *capsule3 = mActors->CreateCapsule(NxVec3(1.4, 1.6, 0), 0.8, 0.45, 11.5);
 	capsule1->setLinearDamping(0.2);
 	capsule2->setLinearDamping(0.2);
 	capsule3->setLinearDamping(0.2);
@@ -150,14 +150,15 @@ void Simulator::CreateScene()
 	mActors->CreateStack(NxVec3(0, 0, 0), NxVec3(2, 1, 2), NxVec3(0.2, 0.2, 0.2), 100.0);
 
 	//Create launcher!
-	//mActors->CreateTower(NxVec3(0, .3, 0),5,NxVec3(0.2, 0.2, 0.2),1.0);
+	//mActors->CreateTower(NxVec3(0, .3, 0),20,NxVec3(0.2, 0.2, 0.2),0.001);
 	//mActors->CreateStack(NxVec3(0, i*0.8, 0),NxVec3(2, 1, 2),NxVec3(0.2,0.2,0.2),0.001);
 
 	
 	//Launch stuff!
 	NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),0.5,0.01);
-	b1->addForce(NxVec3(-12, 3, 0));
+	b1->addForce(NxVec3(-20, 4.1, 0));
 
+	//capsule3->addForce(NxVec3(-10000, 0, 0));
 
 	//Destroy! -- this will knock over anything
 	//NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),1.0,1000);
