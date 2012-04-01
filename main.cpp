@@ -83,7 +83,8 @@ void ProcessKeys()
 			case 'n':
 				{   //Hard reset of the game
 					gSim->ResetScene();
-					gSim->CreateScene(gSim->getStage() + 1);
+					gSim->setStage(gSim->getStage() + 1);
+					gSim->CreateScene(gSim->getStage());
 				}
 		}
 	}

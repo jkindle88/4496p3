@@ -65,9 +65,14 @@ void Simulator::ProcessKeys(const bool *keys)
 void Simulator::RenderActors()
 {
 	//check if win conditions met
-	if(!goal && ball->getGlobalPosition().y < 1 && stage == TOTAL_STAGE_COUNT)
+	if(!goal && ball->getGlobalPosition().y < 1)
 	{
 		mScene->releaseActor(*ball);
+		goal = true;
+	}
+
+	if (stage >= TOTAL_STAGE_COUNT)
+	{
 		goal = true;
 	}
 
