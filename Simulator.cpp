@@ -17,6 +17,11 @@
 #include "Utilities.h"
 #include "DrawObjects.h"
 #include "Actors.h"
+#include "windows.h"
+
+//Bird launching vars
+NxActor *bird;
+time_t clickDownTime;
 
 
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
@@ -144,18 +149,18 @@ void Simulator::CreateScene()
 	mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);
 	
 	// Right side wall -- immutable
-	mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 10, 3),1000.0);
+	mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 10, 3),0.0);
 
 	// Create platform/base -- immutable
-	mActors->CreateStack(NxVec3(0, 0, 0), NxVec3(2, 1, 2), NxVec3(0.2, 0.2, 0.2), 100.0);
+	mActors->CreateStack(NxVec3(0, 0, 0), NxVec3(2, 1, 2), NxVec3(0.2, 0.2, 0.2), 0.0);
 
 	//Create launcher!
 	//mActors->CreateTower(NxVec3(0, .3, 0),20,NxVec3(0.2, 0.2, 0.2),0.001);
 	//mActors->CreateStack(NxVec3(0, i*0.8, 0),NxVec3(2, 1, 2),NxVec3(0.2,0.2,0.2),0.001);
-
+	mActors->CreateBox(NxVec3(0, .3, 0),NxVec3(0.2, 1, 0.2),0.0);
 	
 	//Launch stuff!
-	NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),0.5,0.01);
+	//NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),0.5,0.01);
 	//b1->addForce(NxVec3(-20, 4.1, 0));
 
 	//capsule3->addForce(NxVec3(-10000, 0, 0));
@@ -204,14 +209,21 @@ void Simulator::RunPhysics()
 	mScene->fetchResults(NX_RIGID_BODY_FINISHED, true);
 }
 
-void Simulator::launch() {
+void Simulator::launch(int mx, int my, bool fire) 
+{
+	if (!fire) 
+	{
+		bird = mActors->CreateBall(NxVec3(0, 3, 0),0.5,0.01);
+		clickDownTime = time (NULL);
+	}
 
-	NxActor *b2 = mActors->CreateBall(NxVec3(-2.0, 3, 0),0.5,0.01);
-	b2->addForce(NxVec3(-20, 4.1, 0));
-
-
+	if (fire) 
+	{
+		time_t timeDiff = time(NULL) - clickDownTime;
+		if (timeDiff > 1.0)
+			bird->addForce(NxVec3(-20, 4.1, 0));
+	}
 }
-
 
 Simulator::Simulator()
 {

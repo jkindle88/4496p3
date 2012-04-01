@@ -140,13 +140,16 @@ void KeyboardUpCallback(unsigned char key, int x, int y)
 
 void MouseCallback(int button, int state, int x, int y)
 {
+	mx = x;
+    my = y;
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) 
+	{
+		gSim->launch(mx,my,false);
+	}
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) 
 	{
-		cout << "left button pressed" << endl;
-		gSim->launch();
+		gSim->launch(mx,my,true);
 	}
-    mx = x;
-    my = y;
 }
 
 void MotionCallback(int x, int y)
@@ -175,7 +178,7 @@ void ExitCallback()
 void InitGlut(int argc, char **argv)
 {
     glutInit(&argc, argv);
-    glutInitWindowSize(512, 512);
+    glutInitWindowSize(1280, 800);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	gMainHandle = glutCreateWindow("Simulation");
 	glutSetWindow(gMainHandle);
