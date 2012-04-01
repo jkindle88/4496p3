@@ -23,6 +23,9 @@
 NxActor *bird;
 time_t clickDownTime;
 
+//Target ball
+NxActor *ball;
+
 
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
 {
@@ -148,8 +151,19 @@ void Simulator::CreateScene()
 	mActors->CreateSphericalJoint(capsule1, capsule2, globalAnchor2, globalAxis);
 	mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);
 	
+	//TOWER OF POWER
+	mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 5, 3),0.01);
+	mActors->CreateBox(NxVec3(-30,0,0),NxVec3(0.3, 5, 3),0.01);
+	mActors->CreateBox(NxVec3(-27.5,6,0),NxVec3(10, 0.3, 5), 0.0001);
+
+	//mActors->CreateStack(NxVec3(-25, 0, 0), NxVec3(4,1,1), NxVec3(1,1,1), 0.001);
+	//mActors->CreateStack(NxVec3(-25, 2, 0), NxVec3(3,1,1), NxVec3(1,1,1), 0.001);
+	//mActors->CreateStack(NxVec3(-25, 4, 0), NxVec3(2,1,1), NxVec3(1,1,1), 0.001);
+	//mActors->CreateStack(NxVec3(-25, 6, 0), NxVec3(1,10,1), NxVec3(1,1,1), 0.001);
+
+
 	// Right side wall -- immutable
-	mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 10, 3),0.0);
+	//mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 10, 3),0.0);
 
 	// Create platform/base -- immutable
 	mActors->CreateStack(NxVec3(0, 0, 0), NxVec3(2, 1, 2), NxVec3(0.2, 0.2, 0.2), 0.0);
@@ -220,7 +234,7 @@ void Simulator::launch(int mx, int my, bool fire)
 	if (fire) 
 	{
 		time_t timeDiff = time(NULL) - clickDownTime;
-		if (timeDiff > 1.0)
+		if (timeDiff >= 1)
 			bird->addForce(NxVec3(-20, 4.1, 0));
 	}
 }
