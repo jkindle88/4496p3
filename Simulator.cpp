@@ -28,6 +28,7 @@ int x,y;
 NxActor *ball;
 int winCount = 0;
 int stage = 0;
+const int TOTAL_STAGE_COUNT = 5;
 
 
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
@@ -64,7 +65,7 @@ void Simulator::ProcessKeys(const bool *keys)
 void Simulator::RenderActors()
 {
 	//check if win conditions met
-	if(!goal && ball->getGlobalPosition().y < 1)
+	if(!goal && ball->getGlobalPosition().y < 1 && stage == TOTAL_STAGE_COUNT)
 	{
 		mScene->releaseActor(*ball);
 		goal = true;
