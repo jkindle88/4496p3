@@ -80,11 +80,7 @@ void ProcessKeys()
 						gCameraPos += NxVec3(0,1,0)*gCameraSpeed;
 					break; 
 				}
-			case 'n':
-				{   //Hard reset of the game
-					gSim->ResetScene();
-					gSim->CreateScene(gSim->getStage() + 1);
-				}
+			
 		}
 	}
 }
@@ -139,6 +135,11 @@ void KeyboardCallback(unsigned char key, int x, int y)
 	{
 		case 27 : { exit(0); break; }
 		case 'p': { bPause = !bPause; getElapsedTime(); break; }
+		case 'n': {   //Hard reset of the game
+					gSim->ResetScene();
+					gSim->setStage(gSim->getStage() + 1);
+					gSim->CreateScene(gSim->getStage());
+				}
 		default: { break; }
 	}
 }

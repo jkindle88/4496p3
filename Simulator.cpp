@@ -28,7 +28,11 @@ int x,y;
 NxActor *ball;
 int winCount = 0;
 int stage = 0;
+int numShots = 0;
+
+//global constants
 const int TOTAL_STAGE_COUNT = 5;
+
 
 
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
@@ -65,9 +69,14 @@ void Simulator::ProcessKeys(const bool *keys)
 void Simulator::RenderActors()
 {
 	//check if win conditions met
-	if(!goal && ball->getGlobalPosition().y < 1 && stage == TOTAL_STAGE_COUNT)
+	if(!goal && ball->getGlobalPosition().y < 1)
 	{
 		mScene->releaseActor(*ball);
+		goal = true;
+	}
+
+	if (stage >= TOTAL_STAGE_COUNT)
+	{
 		goal = true;
 	}
 
@@ -201,23 +210,6 @@ void Simulator::CreateScene(int st)
 	
 	// Create the objects in the scene
 	mObjects.push_back(mActors->CreateGroundPlane());
-
-	// create pendulum
-	/*NxActor *capsule1 = mActors->CreateCapsule(NxVec3(1.4, 5, 0), 1.1, 0.25, 11);
-	NxActor *capsule2 = mActors->CreateCapsule(NxVec3(1.4, 3.2, 0), 1.2, 0.35, 10.7);
-	NxActor *capsule3 = mActors->CreateCapsule(NxVec3(1.4, 1.6, 0), 0.8, 0.45, 11.5);
-	capsule1->setLinearDamping(0.2);
-	capsule2->setLinearDamping(0.2);
-	capsule3->setLinearDamping(0.2);
-	
-	// create joints
-	NxVec3 globalAnchor1 = NxVec3(1.4,7,0);
-	NxVec3 globalAnchor2 = NxVec3(1.4,5,0);
-	NxVec3 globalAnchor3 = NxVec3(1.4,3,0);
-	NxVec3 globalAxis = NxVec3(0, -1, 0);
-	mActors->CreateSphericalJoint(NULL, capsule1, globalAnchor1, globalAxis);
-	mActors->CreateSphericalJoint(capsule1, capsule2, globalAnchor2, globalAxis);
-	mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);*/
 	
 	buildLevel(st);
 
@@ -248,7 +240,7 @@ void Simulator::buildLevel(int s)
 	}
 	else if (s==1) //scene 2
 	{
-		// create pendulum
+		/*// create pendulum
 		NxActor *capsule1 = mActors->CreateCapsule(NxVec3(1.4, 5, 0), 1.1, 0.25, 11);
 		NxActor *capsule2 = mActors->CreateCapsule(NxVec3(1.4, 3.2, 0), 1.2, 0.35, 10.7);
 		NxActor *capsule3 = mActors->CreateCapsule(NxVec3(1.4, 1.6, 0), 0.8, 0.45, 11.5);
@@ -263,9 +255,16 @@ void Simulator::buildLevel(int s)
 		NxVec3 globalAxis = NxVec3(0, -1, 0);
 		mActors->CreateSphericalJoint(NULL, capsule1, globalAnchor1, globalAxis);
 		mActors->CreateSphericalJoint(capsule1, capsule2, globalAnchor2, globalAxis);
-		mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);
+		mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);*/
 
-		ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.01);
+		mActors->CreateStack(NxVec3(-25,0,0),NxVec3(5,5,3),NxVec3(.5,1,.5),0.01);
+		mActors->CreateTower(NxVec3(-26,10,0),10,NxVec3(2,.1,2),0.01);
+		mActors->CreateBox(NxVec3(-25,12,0),NxVec3(.2, .2, 1),0.1);
+		mActors->CreateBox(NxVec3(-27,12,0),NxVec3(.2, .2, 1),0.1);
+		mActors->CreateBox(NxVec3(-26,12,1),NxVec3(.5, .2, .2),0.1);
+		mActors->CreateBox(NxVec3(-26,12,-1),NxVec3(.5, .2, .2),0.1);
+
+		ball = mActors->CreateBall(NxVec3(-26, 12, 0),0.5,0.01);
 	}
 	else //hack to handle the issue mentioned in the note at the top of this method
 	{
