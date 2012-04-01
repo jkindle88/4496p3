@@ -1,27 +1,10 @@
-﻿Build started 4/1/2012 4:01:11 AM.
+﻿Build started 4/1/2012 5:10:30 PM.
      1>Project "C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Project3.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\Project3.unsuccessfulbuild".
+         Creating "Debug\Project3.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Util" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\Foundation\include" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\Physics\include" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\PhysXLoader\include" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\Cooking\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _CONSOLE /D _DEBUG /D NX32 /D NX_USE_SDK_STAATICLIBS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Simulator.cpp
-         Simulator.cpp
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(133): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(171): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(171): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(172): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(172): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(173): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(173): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(175): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(187): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(187): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(187): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(192): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(192): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(192): warning C4305: 'argument' : truncation from 'double' to 'NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(249): warning C4305: 'argument' : truncation from 'double' to 'const NxReal'
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(277): warning C4244: 'argument' : conversion from 'double' to 'NxReal', possible loss of data
-     1>c:\users\has ten hamsters\desktop\anim3\4496p3\simulator.cpp(277): warning C4244: 'argument' : conversion from 'double' to 'NxReal', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\Has ten Hamsters\Desktop\anim3\4496p3\Util" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\Foundation\include" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\Physics\include" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\PhysXLoader\include" /I"C:\Program Files (x86)\NVIDIA Corporation\NVIDIA PhysX SDK\v2.8.3\SDKs\Cooking\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _CONSOLE /D _DEBUG /D NX32 /D NX_USE_SDK_STAATICLIBS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -47,4 +30,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.94
+Time Elapsed 00:00:03.72
