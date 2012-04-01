@@ -27,6 +27,7 @@ int x,y;
 //Win conditions
 NxActor *ball;
 int winCount = 0;
+int stage = 0;
 
 
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
@@ -189,7 +190,7 @@ bool Simulator::InitNx()
 	return true;
 }
 
-void Simulator::CreateScene()
+void Simulator::CreateScene(int st)
 {	
 	mActors = new Actors(mSDK, mScene);
 	NxMaterial *defaultMaterial = mScene->getMaterialFromIndex(0); 
@@ -217,42 +218,58 @@ void Simulator::CreateScene()
 	mActors->CreateSphericalJoint(capsule1, capsule2, globalAnchor2, globalAxis);
 	mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);*/
 	
-	//TOWER OF POWER
-	mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 5, 3),0.01);
-	mActors->CreateBox(NxVec3(-30,0,0),NxVec3(0.3, 5, 3),0.01);
-	mActors->CreateBox(NxVec3(-27.5,6,0),NxVec3(10, 0.3, 5), 0.0001);
+	buildLevel(st);
 
-	ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.01);
-
-	//mActors->CreateStack(NxVec3(-25, 0, 0), NxVec3(4,1,1), NxVec3(1,1,1), 0.001);
-	//mActors->CreateStack(NxVec3(-25, 2, 0), NxVec3(3,1,1), NxVec3(1,1,1), 0.001);
-	//mActors->CreateStack(NxVec3(-25, 4, 0), NxVec3(2,1,1), NxVec3(1,1,1), 0.001);
-	//mActors->CreateStack(NxVec3(-25, 6, 0), NxVec3(1,10,1), NxVec3(1,1,1), 0.001);
-
-
-	// Right side wall -- immutable
-	//mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 10, 3),0.0);
-
-	// Create platform/base -- immutable
+	// Create platform and launcher -- immutable
 	mActors->CreateStack(NxVec3(0, 0, 0), NxVec3(2, 1, 2), NxVec3(0.2, 0.2, 0.2), 0.0);
-
-	//Create launcher!
-	//mActors->CreateTower(NxVec3(0, .3, 0),20,NxVec3(0.2, 0.2, 0.2),0.001);
-	//mActors->CreateStack(NxVec3(0, i*0.8, 0),NxVec3(2, 1, 2),NxVec3(0.2,0.2,0.2),0.001);
 	mActors->CreateBox(NxVec3(0, .3, 0),NxVec3(0.2, 1, 0.2),0.0);
 	
-	//Launch stuff!
-	//NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),0.5,0.01);
-	//b1->addForce(NxVec3(-20, 4.1, 0));
 
-	//capsule3->addForce(NxVec3(-10000, 0, 0));
-
-	//Destroy! -- this will knock over anything
-	//NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),1.0,1000);
-	//b1->addForce(NxVec3(-500000, 50000, 0));
 	
 	goal = false;
 	getElapsedTime();
+}
+
+/**NOTE -- the following line must be included in EACH of the levels, as
+* this determines the winstate.  The game will crash with a runtime error
+* if it is not included
+*/
+void Simulator::buildLevel(int s)
+{
+	if (s==0) //scene 1
+	{
+		//TOWER OF POWER
+		mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 5, 3),0.01);
+		mActors->CreateBox(NxVec3(-30,0,0),NxVec3(0.3, 5, 3),0.01);
+		mActors->CreateBox(NxVec3(-27.5,6,0),NxVec3(10, 0.3, 5), 0.0001);
+
+		ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.01);
+	}
+	else if (s==1) //scene 2
+	{
+		// create pendulum
+		NxActor *capsule1 = mActors->CreateCapsule(NxVec3(1.4, 5, 0), 1.1, 0.25, 11);
+		NxActor *capsule2 = mActors->CreateCapsule(NxVec3(1.4, 3.2, 0), 1.2, 0.35, 10.7);
+		NxActor *capsule3 = mActors->CreateCapsule(NxVec3(1.4, 1.6, 0), 0.8, 0.45, 11.5);
+		capsule1->setLinearDamping(0.2);
+		capsule2->setLinearDamping(0.2);
+		capsule3->setLinearDamping(0.2);
+	
+		// create joints
+		NxVec3 globalAnchor1 = NxVec3(1.4,7,0);
+		NxVec3 globalAnchor2 = NxVec3(1.4,5,0);
+		NxVec3 globalAnchor3 = NxVec3(1.4,3,0);
+		NxVec3 globalAxis = NxVec3(0, -1, 0);
+		mActors->CreateSphericalJoint(NULL, capsule1, globalAnchor1, globalAxis);
+		mActors->CreateSphericalJoint(capsule1, capsule2, globalAnchor2, globalAxis);
+		mActors->CreateSphericalJoint(capsule2, capsule3, globalAnchor3, globalAxis);
+
+		ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.01);
+	}
+	else //hack to handle the issue mentioned in the note at the top of this method
+	{
+		ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.0);
+	}
 }
 
 
@@ -327,6 +344,12 @@ void Simulator::launch(int mx, int my, bool fire)
 		bird->addForce(NxVec3(dx, dy, 0));
 	}
 }
+
+//Getters and Setters
+void Simulator::setGoal(bool g){ goal = g;}
+bool Simulator::getGoal() { return goal; }
+void Simulator::setStage(int s) { stage = s; }
+int Simulator::getStage() { return stage; }
 
 Simulator::Simulator()
 {

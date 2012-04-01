@@ -22,14 +22,13 @@ public:
 	NxPhysicsSDK *mSDK;
 	NxScene *mScene;
 	bool goal;
-	
+
 private:
 	Actors *mActors;
 	UserAllocator *mAllocator;
 	NxVec3 mForceVec;
 	NxReal mForceStrength;
 	bool mForceMode;
-	
 	
 	std::vector<NxActor*> mObjects;
 	NxActor *mSelectedObject;
@@ -40,7 +39,8 @@ public:
 	
 	bool InitNx();
 	void ReleaseNx();
-	void CreateScene();
+	void CreateScene(int stage);
+	void buildLevel(int s);
 	
 	//Gameplay additions
 	void launch(int x, int y, bool fire);
@@ -49,6 +49,12 @@ public:
 	void RenderScene();
 	void RunPhysics();
 	void ProcessKeys(const bool *keys);
+
+	//Getters and Setters
+	void setGoal(bool g);
+	bool getGoal();
+	void setStage(int s);
+	int getStage();
 		
 private:
 	void Reset();

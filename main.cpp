@@ -43,7 +43,7 @@ void ProcessKeys()
 
 			// Camera controls -- Constrain viewing area
 			// vertical range: between 4.0 and 10.0
-			// horizontal range: between -2.5 and 15.0
+			// horizontal range: between -2.5 and -16.0
 			case 'a':
 				{
 					if (gCameraPos[0] <= -2.5)
@@ -81,9 +81,9 @@ void ProcessKeys()
 					break; 
 				}
 			case 'n':
-				{ 
+				{   //Hard reset of the game
 					gSim->ResetScene();
-					gSim->CreateScene();
+					gSim->CreateScene(gSim->getStage() + 1);
 				}
 		}
 	}
@@ -103,15 +103,6 @@ void SetupCamera()
 
 void RenderCallback()
 {
-	if (gSim->goal)
-	{
-		bPause = true;
-	}
-	else
-	{
-		bPause = false;
-	}
-
     if (gSim && !bPause)
 	{
         gSim->RunPhysics();
@@ -177,13 +168,13 @@ void MotionCallback(int x, int y)
     int dy = my - y;
     
 	//DEBUG -- Remove in final version
-    gCameraForward.normalize();
+    /*gCameraForward.normalize();
     gCameraRight.cross(gCameraForward,NxVec3(0,1,0));
 	
     NxQuat qx(NxPiF32 * dx * 20 / 180.0f, NxVec3(0,1,0));
     qx.rotate(gCameraForward);
     NxQuat qy(NxPiF32 * dy * 20 / 180.0f, gCameraRight);
-    qy.rotate(gCameraForward);
+    qy.rotate(gCameraForward);*/
 	
     mx = x;
     my = y;
@@ -231,7 +222,7 @@ int main(int argc, char** argv)
 	gSim = new Simulator();
 	// Initialize physics scene and start the application main loop if scene was created
 	if (gSim->InitNx()){
-		gSim->CreateScene();
+		gSim->CreateScene(0);
 		atexit(ExitCallback);
 		glutMainLoop();
 	}
