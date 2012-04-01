@@ -140,9 +140,10 @@ void KeyboardUpCallback(unsigned char key, int x, int y)
 
 void MouseCallback(int button, int state, int x, int y)
 {
-	if (button == GLUT_LEFT_BUTTON) 
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) 
 	{
-		//Simulator.launch();
+		cout << "left button pressed" << endl;
+		gSim->launch();
 	}
     mx = x;
     my = y;

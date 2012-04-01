@@ -156,7 +156,7 @@ void Simulator::CreateScene()
 	
 	//Launch stuff!
 	NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),0.5,0.01);
-	b1->addForce(NxVec3(-20, 4.1, 0));
+	//b1->addForce(NxVec3(-20, 4.1, 0));
 
 	//capsule3->addForce(NxVec3(-10000, 0, 0));
 
@@ -202,6 +202,14 @@ void Simulator::RunPhysics()
 	mScene->simulate(deltaTime);	
 	mScene->flushStream();
 	mScene->fetchResults(NX_RIGID_BODY_FINISHED, true);
+}
+
+void Simulator::launch() {
+
+	NxActor *b2 = mActors->CreateBall(NxVec3(-2.0, 3, 0),0.5,0.01);
+	b2->addForce(NxVec3(-20, 4.1, 0));
+
+
 }
 
 

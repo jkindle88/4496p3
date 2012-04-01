@@ -41,6 +41,7 @@ public:
 	void ReleaseNx();
 	void CreateScene();
 	
+	void launch();
 	void RenderScene();
 	void RunPhysics();
 	void ProcessKeys(const bool *keys);
