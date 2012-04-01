@@ -2,7 +2,9 @@
 #include <glut.h>
 #include "Simulator.h"
 #include "Timing.h"
+#include "windows.h"
 #include <iostream>
+#include <ctime>
 using namespace std;
 
 static Simulator *gSim = NULL;
@@ -11,12 +13,13 @@ static Simulator *gSim = NULL;
 int gMainHandle;
 int mx = 0;
 int my = 0;
+time_t goalPauseTime;
 
 // Camera globals
 NxVec3 gCameraPos(0,5,-18);
 NxVec3 gCameraForward(0,0,1);
 NxVec3 gCameraRight(-1,0,0);
-const NxReal gCameraSpeed = 0.02;
+const NxReal gCameraSpeed = 0.12;
 
 
 // Keyboard globals
@@ -95,11 +98,19 @@ void SetupCamera()
 
 void RenderCallback()
 {
-	if (gSim->goal == true)
+	if (gSim->goal)
+	{
 		bPause = true;
+	}
+	else
+	{
+		bPause = false;
+	}
 
-    if (gSim && !bPause)    
+    if (gSim && !bPause)
+	{
         gSim->RunPhysics();
+	}
 	
     // Clear buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -27,7 +27,6 @@ int x,y;
 //Win conditions
 NxActor *ball;
 
-
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
 {
 	NxVec3 forceVec = mForceStrength * forceDir;
@@ -61,6 +60,7 @@ void Simulator::ProcessKeys(const bool *keys)
 
 void Simulator::RenderActors()
 {
+
 	if(!goal && ball->getGlobalPosition().y < 1)
 	{
 		mScene->releaseActor(*ball);
@@ -93,6 +93,29 @@ void Simulator::RenderScene()
 	RenderActors();
 	if(mActors->mSelectedActor)
 		RenderForce(mActors->mSelectedActor, mForceVec, NxVec3(1, 0, 0));
+
+	//Victory, display "YOU WIN" in the sky
+	if (goal)
+	{
+		//Y
+		mActors->CreateTower(NxVec3(-3,10,10),6,NxVec3(.2,.2,.2),100.0);
+		mActors->CreateBox(NxVec3(-3,12.4,10),NxVec3(1.2,.2,.2),1.0);
+		mActors->CreateBox(NxVec3(-2,12.8,10),NxVec3(.2,1.2,.2),1.0);
+		mActors->CreateBox(NxVec3(-4,12.8,10),NxVec3(0.2,1.2,.2),1.0);
+
+		//O
+		mActors->CreateBox(NxVec3(-6,10,10),NxVec3(1.2,.2,.2),1.0);
+		mActors->CreateBox(NxVec3(-5,10.4,10),NxVec3(.2,1.2,.2),1.0);
+		mActors->CreateBox(NxVec3(-7,10.4,10),NxVec3(.2,1.2,.2),1.0);
+		mActors->CreateBox(NxVec3(-6,12.8,10),NxVec3(1.2,.2,.2),1.0);
+
+		//U
+		mActors->CreateBox(NxVec3(-9,10,10),NxVec3(1.2,.2,.2),1.0);
+		mActors->CreateBox(NxVec3(-8,10.4,10),NxVec3(.2,1.4,.2),1.0);
+		mActors->CreateBox(NxVec3(-10,10.4,10),NxVec3(.2,1.4,.2),1.0);
+
+		//W
+	}
 }
 
 bool Simulator::InitNx()
@@ -171,6 +194,7 @@ void Simulator::CreateScene()
 	//mActors->CreateStack(NxVec3(-25, 6, 0), NxVec3(1,10,1), NxVec3(1,1,1), 0.001);
 
 
+
 	// Right side wall -- immutable
 	//mActors->CreateBox(NxVec3(-25,0,0),NxVec3(0.3, 10, 3),0.0);
 
@@ -183,8 +207,12 @@ void Simulator::CreateScene()
 	mActors->CreateBox(NxVec3(0, .3, 0),NxVec3(0.2, 1, 0.2),0.0);
 	
 	//Launch stuff!
-	//NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),0.5,0.01);
-	//b1->addForce(NxVec3(-20, 4.1, 0));
+
+
+
+
+	//mActors->CreateTower(NxVec3(-2,2.4,-10),6,NxVec3(.2,.2,.2),1.0);
+	//mActors->CreateTower(NxVec3(-4,2.4,-10),6,NxVec3(.2,.2,.2),1.0);
 
 	//capsule3->addForce(NxVec3(-10000, 0, 0));
 
