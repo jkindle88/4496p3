@@ -20,7 +20,8 @@ class Simulator
 {
 public:
 	NxPhysicsSDK *mSDK;
-	NxScene *mScene;	
+	NxScene *mScene;
+	bool goal;
 	
 private:
 	Actors *mActors;

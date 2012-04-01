@@ -22,10 +22,10 @@
 //Bird launching vars
 NxActor *bird;
 time_t clickDownTime;
+int x,y;
 
 //Win conditions
 NxActor *ball;
-bool goal = false;
 
 
 NxVec3 Simulator::ApplyForceToActor(NxActor *actor, const NxVec3& forceDir)
@@ -192,6 +192,7 @@ void Simulator::CreateScene()
 	//NxActor *b1 = mActors->CreateBall(NxVec3(-2.0, 3, 0),1.0,1000);
 	//b1->addForce(NxVec3(-500000, 50000, 0));
 	
+	goal = false;
 	getElapsedTime();
 }
 
@@ -238,13 +239,23 @@ void Simulator::launch(int mx, int my, bool fire)
 	{
 		bird = mActors->CreateBall(NxVec3(0, 3, 0),0.5,0.01);
 		clickDownTime = time (NULL);
+		x = mx;
+		y = my;
 	}
 
 	if (fire) 
 	{
+		int dx = mx - x;
+		int dy = my - y;
 		time_t timeDiff = time(NULL) - clickDownTime;
-		if (timeDiff >= 1)
+		if (timeDiff >= 1 && timeDiff < 2)
 			bird->addForce(NxVec3(-20, 4.1, 0));
+		else if (timeDiff >= 2 && timeDiff < 3)
+			bird->addForce(NxVec3(-30, 4.1, 0));
+		else if (timeDiff >= 3 && timeDiff < 4)
+			bird->addForce(NxVec3(-40, 4.1, 0));
+		else
+			bird->addForce(NxVec3(-1, 4.1, 0));
 	}
 }
 

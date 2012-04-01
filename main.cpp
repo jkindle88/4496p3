@@ -95,6 +95,9 @@ void SetupCamera()
 
 void RenderCallback()
 {
+	if (gSim->goal == true)
+		bPause = true;
+
     if (gSim && !bPause)    
         gSim->RunPhysics();
 	
@@ -142,11 +145,11 @@ void MouseCallback(int button, int state, int x, int y)
 {
 	mx = x;
     my = y;
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) 
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && !bPause) 
 	{
 		gSim->launch(mx,my,false);
 	}
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) 
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP && !bPause) 
 	{
 		gSim->launch(mx,my,true);
 	}
