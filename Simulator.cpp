@@ -130,7 +130,7 @@ void Simulator::RenderScene()
 	if(goal) {stage++; ResetScene(); CreateScene(stage);}
 	
 	//Victory, display "YOU WIN" in the sky
-	if(stage == 2 /*&& (winCount == 0 || winCount > 3000) && winCount < 3020*/)
+	if(stage == TOTAL_STAGE_COUNT /*&& (winCount == 0 || winCount > 3000) && winCount < 3020*/)
 	{
 		stage++;
 		//Y
@@ -269,6 +269,45 @@ void Simulator::buildLevel(int s)
 		mActors->CreateBox(NxVec3(-26,12,-1),NxVec3(.5, .2, .2),0.1);
 
 		ball = mActors->CreateBall(NxVec3(-26, 12, 0),0.5,0.01);
+	}
+	else if (s==2)
+	{
+
+
+		ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.0);
+	}
+	else if (s==3)
+	{
+		ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.0);
+	}
+	else if (s==4)
+	{
+		ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.0);
+	}
+	else if (s==5) //this is pretty much impossible.  no bird limit.
+	{
+		mActors->CreateTower(NxVec3(-27,0,3),5,NxVec3(1,.5,1),0.01);
+		mActors->CreateTower(NxVec3(-27,0,-3),5,NxVec3(1,.5,1),0.01);
+		mActors->CreateTower(NxVec3(-24,0,3),5,NxVec3(1,.5,1),0.01);
+		mActors->CreateTower(NxVec3(-24,0,-3),5,NxVec3(1,.5,1),0.01);
+
+		mActors->CreateBox(NxVec3(-25.5,6,0),NxVec3(3,.1,4),0.01);
+
+		mActors->CreateTower(NxVec3(-27,6.1,3),5,NxVec3(1,.5,1),0.01);
+		mActors->CreateTower(NxVec3(-27,6.1,-3),5,NxVec3(1,.5,1),0.01);
+		mActors->CreateTower(NxVec3(-24,6.1,3),5,NxVec3(1,.5,1),0.01);
+		mActors->CreateTower(NxVec3(-24,6.1,-3),5,NxVec3(1,.5,1),0.01);
+
+		mActors->CreateBox(NxVec3(-25.5,11,0),NxVec3(3,.1,4),0.01);
+		
+		mActors->CreateTower(NxVec3(-27,11.1,0),5,NxVec3(.8,.3,1.2),0.03);
+		mActors->CreateTower(NxVec3(-24,11.1,0),5,NxVec3(.8,.3,1.2),0.03);
+		mActors->CreateTower(NxVec3(-27,11.1,3),5,NxVec3(1.2,.3,1.2),0.03);
+		mActors->CreateTower(NxVec3(-27,11.1,-3),5,NxVec3(1.2,.3,1.2),0.03);
+		mActors->CreateTower(NxVec3(-24,11.1,3),5,NxVec3(1.2,.3,1.2),0.03);
+		mActors->CreateTower(NxVec3(-24,11.1,-3),5,NxVec3(1.2,.3,1.2),0.03);
+
+		ball = mActors->CreateBall(NxVec3(-25.5,12, 0),0.5,0.01);
 	}
 	else //hack to handle the issue mentioned in the note at the top of this method
 	{
