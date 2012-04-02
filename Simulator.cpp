@@ -69,23 +69,23 @@ void Simulator::ProcessKeys(const bool *keys)
 void Simulator::RenderActors()
 {
 	//check if win conditions met
-	if(!goal && ball->getGlobalPosition().y < 1)
+	if(!goal && ball!=NULL && ball->getGlobalPosition().y < 1)
 	{
 		mScene->releaseActor(*ball);
 		goal = true;
 	}
 
-	if (stage >= TOTAL_STAGE_COUNT)
+	/*if (stage >= TOTAL_STAGE_COUNT)
 	{
 		goal = true;
-	}
+	}*/
 
 	//destroy 'bird' once it touches ground
-	if(bird != NULL && bird->getGlobalPosition().y < 1)
+	/*if(bird != NULL && bird->getGlobalPosition().y < 1)
 	{
 		mScene->releaseActor(*bird);
 		bird = NULL;
-	}
+	}*/
 
     // Render all the actors in the scene
     int nActor = mScene->getNbActors();
@@ -119,15 +119,20 @@ void Simulator::ResetScene()
     }
 }
 
+
 void Simulator::RenderScene()
 {
 	RenderActors();
 	if(mActors->mSelectedActor)
 		RenderForce(mActors->mSelectedActor, mForceVec, NxVec3(1, 0, 0));
 
+	//win, progress through levels
+	if(goal) {stage++; ResetScene(); CreateScene(stage);}
+	
 	//Victory, display "YOU WIN" in the sky
-	if (goal && (winCount == 0 || winCount > 3000) && winCount < 3020)
+	if(stage == 2 /*&& (winCount == 0 || winCount > 3000) && winCount < 3020*/)
 	{
+		stage++;
 		//Y
 		mActors->CreateTower(NxVec3(-3,10,10),6,NxVec3(.2,.2,.2),0.001);
 		mActors->CreateBox(NxVec3(-3,12.4,10),NxVec3(1.2,.2,.2),0.001);
@@ -159,10 +164,11 @@ void Simulator::RenderScene()
 		mActors->CreateBox(NxVec3(-18,10,10),NxVec3(.2,1.2,.2),0.001);
 		mActors->CreateBox(NxVec3(-17.2,12.4,10),NxVec3(1.0,.2,.2),0.001);
 	}
-	if (goal)
+	/*if (goal)
 		winCount++;
 	else if (winCount > 3021)
-		winCount = 3021;
+		winCount = 3021;*/
+
 }
 
 bool Simulator::InitNx()
@@ -217,8 +223,6 @@ void Simulator::CreateScene(int st)
 	mActors->CreateStack(NxVec3(0, 0, 0), NxVec3(2, 1, 2), NxVec3(0.2, 0.2, 0.2), 0.0);
 	mActors->CreateBox(NxVec3(0, .3, 0),NxVec3(0.2, 1, 0.2),0.0);
 	
-
-	
 	goal = false;
 	getElapsedTime();
 }
@@ -268,7 +272,8 @@ void Simulator::buildLevel(int s)
 	}
 	else //hack to handle the issue mentioned in the note at the top of this method
 	{
-		ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.0);
+		//ball = mActors->CreateBall(NxVec3(-27.5, 12, 0),0.5,0.0);
+		ball = NULL;
 	}
 }
 
@@ -313,6 +318,7 @@ void Simulator::launch(int mx, int my, bool fire)
 {
 	if (!fire) 
 	{
+		mScene->releaseActor(*bird);
 		bird = mActors->CreateBall(NxVec3(0, 3, 0),0.5,0.01);
 		clickDownTime = time (NULL);
 		x = mx;
@@ -327,8 +333,8 @@ void Simulator::launch(int mx, int my, bool fire)
 		dx = dx*(1.0/2.0);
 		dy = dy*(1.0/4.0);
 
-		if (dx<-30) dx = -30;
-		else if (dx>0) dx = 1;
+		if (dx<-29) dx = -29;
+		else if (dx>=0) dx = -1;
 		if (dy>20) dy = 20;
 		else if (dy<0) dy = 0;
 
@@ -365,8 +371,7 @@ Simulator::Simulator()
 }
 
 Simulator::~Simulator()
-{
-	
+{	
 	int nObject = mObjects.size();
 	for(int i = 0; i < nObject; i++)
 		mScene->releaseActor(*mObjects[i]);
