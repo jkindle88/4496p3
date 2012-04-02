@@ -130,7 +130,7 @@ void Simulator::RenderScene()
 	if(goal) {stage++; ResetScene(); CreateScene(stage);}
 	
 	//Victory, display "YOU WIN" in the sky
-	if(stage > TOTAL_STAGE_COUNT /*&& (winCount == 0 || winCount > 3000) && winCount < 3020*/)
+	if(stage > TOTAL_STAGE_COUNT && (winCount == 0 || winCount > 3000) && winCount < 3020)
 	{
 		stage++;
 		//Y
@@ -164,10 +164,10 @@ void Simulator::RenderScene()
 		mActors->CreateBox(NxVec3(-18,10,10),NxVec3(.2,1.2,.2),0.001);
 		mActors->CreateBox(NxVec3(-17.2,12.4,10),NxVec3(1.0,.2,.2),0.001);
 	}
-	/*if (goal)
+	if (stage > TOTAL_STAGE_COUNT)
 		winCount++;
 	else if (winCount > 3021)
-		winCount = 3021;*/
+		winCount = 3021;
 
 }
 
